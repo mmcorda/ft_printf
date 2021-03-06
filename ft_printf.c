@@ -17,7 +17,7 @@ int     ft_printf(const char *format, ...)
         {
                   if (format[i] != '%')
                   {
-                          ft_puthcar(format[i]);
+                          ft_putchar(format[i]);
                   }
                   else
                   {
