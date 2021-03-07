@@ -13,7 +13,7 @@ int   fill_dash_indicator(str, t_format *format)
 {
       int dash;
   
-      dash = find_char(str, '-');
+      dash = found_char(str, '-');
       if (dash == 1)
       {
               format->indicator[1] = 1;
