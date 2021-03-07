@@ -1,6 +1,6 @@
 #include "../ft_printf.h"
 
-int   find_char(char *str, char c)
+int   found_char(char *str, char c)
 {
       int i;
   
@@ -12,4 +12,12 @@ int   find_char(char *str, char c)
               i++;
       }
       return (0);
+}
+
+int	is_correct_type(char c)
+{
+	if (c == 'i' || c == 'd' || c == 'u' || c == 's' || c == 'c' ||
+		c == 'x' || c == 'X' || c == 'p')//Attention au cas du %
+		return (1);
+	return (0);
 }
