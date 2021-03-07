@@ -26,7 +26,7 @@ int     ft_printf(const char *format, ...)
                           //incrementer va_args?
                           i++;
                           if (format[i] == '%')
-                                   ft_putchar('%');
+                                   ft_putchar('%'); //parser
                           else if (format[i] == 'c')
                                    this_c(format[i], args);
                           else if (format[i] == 's')
