@@ -4,7 +4,8 @@ t_format        ft_init_struct(void)
 {
         t_format  format;
   
-        format.indicator = 0;
+        format.indicator[0] = 0;
+        format.indicator[1] = 0;
         format.width = 0;
         format.precision = 0;
         format.size = 0;
@@ -17,4 +18,7 @@ void    fill_struct_element(char *str, t_format *format)
         fill_type(str, format);
         fill_dash_indicator(str, format);
         fill_zero_indicator(str, format);
+        fill_width(str, format);
+        fill_precision(str, format);
+        //fill_size(str, format);
 }
