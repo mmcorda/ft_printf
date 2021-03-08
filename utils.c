@@ -1,8 +1,15 @@
 #include "../ft_printf.h"
 
-int   found_char(char *str, char c)
+int	ft_isdigit(char c)
 {
-      int i;
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
+int	found_char(char *str, char c)
+{
+	int i;
   
       i = 0;
       while (str[i])
