@@ -17,7 +17,7 @@ int   count_format(char *str)
             }
             i++;
     }
-    return (cunt);
+    return (count);
 }
 
 //Faire en sorte de copier ce qui est apres le % pour gerer le cas %
@@ -25,13 +25,10 @@ char    *ft_format_dup(char *str)
 {
         char  *copy;
         int i;
-  
-        if (!str)
-               return (NULL);
-        i = 0;
-        if (str[0] == '%')
-                i++;
-        printf("%i\n", i);
+	
+	i = 0;
+        while (str[i] && (correct_type(str[i]) != 1))
+		i++;
         if (!(copy = (char *)malloc(sizeof(char) * (i + 2))))
                 return (NULL);
         i = 0;
@@ -63,8 +60,18 @@ char **split_format(char *str)
 	j = 0;
 	while (str[i])
 	{
-		while (!(str[i] == '%'))
+		while (!(str[i] == '%')) && str[i])
 			i++;
-		strs[j] = ft_format_dup(str + i);//A terminer + tester
+		if (str[i] == '%')
+		{
+			strs[j] = ft_format_dup(str + i);
+			printf("%s\n, strs[j]);
+			j++;
+		}
+		i++;
 	}
-}
+	strs[++j] = NULL;
+	printf("%s\n", strs[j]);
+	printf("%s\n", j);
+	return (strs);
+}			       
