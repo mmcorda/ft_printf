@@ -21,7 +21,7 @@ int   fill_dash_indicator(str, t_format *format)
       return (dash);
 }
 
-int fill_zero_indicator(char *str, t_format *format)
+int   fill_zero_indicator(char *str, t_format *format)
 {
         if (found_char(str, '-') == 1)
         {
@@ -41,4 +41,33 @@ int fill_zero_indicator(char *str, t_format *format)
         }
         return (0);
 }
+
+int   fill_width(char *str, t_format format)
+{
+      int   precision;
+      
+      width = get_width(str);
+      format->width = width;
+      return (width);
+}
+
+int   fill_precision(char *str, t_format *format)
+{
+      int   precision;
+      
+      precision = get_precision(str);
+      format->precision = precision;
+      return (precision);
+}
+
+int   fill_type(char *str, t_format *format)
+{
+      int   type;
+      
+      type = get_conv_type(str);
+      format->type = type;
+      return (type);
+}
+      
+      
         
