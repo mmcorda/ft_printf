@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#include <stdbool.h>
 
 # define ERROR -1
 # define DONE 0
@@ -16,14 +17,19 @@
 # define HEXA 5
 # define POINTER 6
 
+typedef struct  s_flags
+{
+        bool    justify_left;
+        bool    pad_zero;
+}                                 t_flags;
+
 typedef struct  s_format
 {
-        int indicator[2]; //0 = 0 et 1 = dash
+       // int indicator[2]; //0 = 0 et 1 = dash
+        t_flags flags;
         int width;
         int precision;
         int type;
-        int lenght;
-        int size;
 }                                 t_format;
 
 int ft_printf(const char *format, ...);
@@ -31,18 +37,30 @@ int is_numeric_conv(char c);
 int is_alpha_conv(char c);
 
 /*
-** UTILS
+** UTILS - separer plus tard
 */
 
-int found_char(char *str, char c);
-int correct_type(char c);
-int ft_isdigit(int c);
+int     found_char(const char *str, char c);
+int     correct_type(char c);
+int     ft_isdigit(int c);
+void    ft_putchar(char c);
+void    ft_putnbr(int nbr);
+int     ft_strlen(const char *s);
+
+int     correct_spec(char *s);
+int     ft_putstr(char *str);
+int     find_next_correct_type_no_pc(const char *str);
+int     count_total_pc(const char *str);
+//No "pc" = no %
+int     is_correct_type_no_pc(char c);
 
 /*
-**  struct part
+**  struct.c part
 */
 
 t_format  ft_init_struct(void);
+void    fill_struct_element(char *str, t_format *format);
+int     count_format(char *str);
 
 /*
 ** get_struct
@@ -52,14 +70,36 @@ int get_conv_type(char *str);
 int get_width(char *str);
 int get_precision(char *str);
 
-int fill_dash_indicator(char *str, t_format *format);
-int fill_zero_indicator(char *str, t_format *format);
-int fill_type(char *str, t_format *format);
-int fill_width(char *str, t_format *format);
-int fill_precision(char *str, t_format *format);
-void  fill_struct_element(char *str, t_format *format);
-int count_format(char *str);
-char  *ft_format_dup(char *str)
+/* 
+** fill_struct.c - revoir params
+*/
+
+int     fill_type(char *str, t_format *format);
+int     fill_width(char *str, t_format *format);
+int     fill_precision(char *str, t_format *format);
+bool    justify_left(const char *str, t_format *format);
+bool    pad_zero(const char *str, t_format *format);
+
+/*
+** split_formats.c
+*/
+
+char  *ft_format_dup(char *str);
 char  **split_format(char *str);
+
+/*
+** manage_type.c a revoir (autres fonctions dans fichiers separes)
+*/
+
+int     get_type(const char *format, int *printed_chars);
+
+/*
+** type_pc.c
+*/
+
+void    print_pc(const char *str, t_format *format, int *print_chars);
+
+//int fill_dash_indicator(char *str, t_format *format);
+//int fill_zero_indicator(char *str, t_format *format);
 
 #endif
