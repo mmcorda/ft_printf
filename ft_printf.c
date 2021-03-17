@@ -14,17 +14,50 @@ int     parse(const char *format, va_list arg_ptr)
         //marche pas pour %
         //printf("\nLa string est : "%s\n", &format[i]
         fill_struct(format, spec);//attention a ne pas envoyer des mauvais type
-        if (found_char(format))
-                handle_star(spec, arg_ptr);
-        printed(spec, arg_ptr);
-        printed_char = spec->printed_chars;
+        if (found_star(format))
+                handle_star(format, spec, arg_ptr);
+        printed_type(format, spec, arg_ptr);
+        printed_chars = spec->printed_chars;
         return(printed_chars);
 }
 
-//Voir si on devrait ajouter une variable pour suivre sur quel caractere on se trouve
+void	print_type(const char *str, t_format *spec, va_list arg_ptr)
+{
+	int type;
+	type = spec->type;
+	/*
+	printf("----------\n");
+	printstruct(*spec);
+	printf("----------\n");
+	*/
+	if (type == PC)
+		print_pc(str, spec);
+	else if (type == S)
+	{
+		print_s(spec, arg_ptr);
+	}
+	else if (type == ID)
+	{
+		print_id(spec, arg_ptr);
+	}
+	else if (type == U)
+	{
+		print_u(spec, arg_ptr);
+	}
+	/*
+		return (print_u(format));
+	else if (type == C)
+		return (print_c(format));
+	else if (type == H)
+		return (print_pc(format));s
+	else if (type == P)
+		return (print_p(format));
+	else
+		return (-1);
+	*/
+
+}
 //Attention differencier i et de printed chars
-//Attention tests plus ok nocrash null spec / ajouter fonction qui verifie
-//finir les tests pc 0 15
 int     ft_printf(const char *format, ...)
 {
         int             printed_chars;
@@ -34,8 +67,6 @@ int     ft_printf(const char *format, ...)
         
         printed_chars = 0;
         i = 0;
-        //spec = ft_init_struct()
-        //printstruct(spec);
         va_start(arg_ptr, format);
 //On creer un compteur qui va se souvenir de combien de % on a croiser.
         while (format[i])
@@ -57,30 +88,3 @@ int     ft_printf(const char *format, ...)
         va_end(arg_ptr);
         return (printed_chars);
 }
-
-/*                          count++;
-                          va_args(args, int);
-                          //incrementer va_args?
-                          i++;
-                          if (format[i] == '%')
-                                   ft_putchar('%'); //parser
-                          else if (format[i] == 'c')
-                                   this_c(format[i], args);
-                          else if (format[i] == 's')
-                                   this_s(format[i], args);
-                          else if (format[i] == 'p')
-                                   this_p(format[i], args);
-                          else if (format[i] == 'd' || format[i] == 'i')
-                                   this_dori(format[i], args);
-                          else if (format[i] == 'u')
-                                   this_u(format[i], args);
-                          else if (format[i] == 'x' || format[i] == 'X')
-                                   this_xx(format[i], args);
-                          return(0);
-                  }
-                  i++;
-        }
-        va_end(args);
-        return (1);
-}
-*/
